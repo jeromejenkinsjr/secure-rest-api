@@ -20,7 +20,7 @@ class ProductResource extends JsonResource
     'description'=> $this->description,
     'price' => $this->price,
     'created_at' => $this->created_at ? $this->created_at->format('d/m/Y') : null,
-'updated_at' => $this->updated_at ? $this->updated_at->format('d/m/Y') : null,
+    'updated_at' => $this->updated_at ? $this->updated_at->format('d/m/Y') : null,
 
 ];
     }
