@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model; // <-- needed
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -12,16 +12,19 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
 // --- traits that implement the contracts ---
+use Illuminate\Auth\Authenticatable;          // <-- the TRAIT you meant
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 
 class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
-    CanResetPasswordContract
+    CanResetPasswordContract,
+    MustVerifyEmailContract
 {
     use HasFactory,
         Notifiable,
@@ -29,7 +32,7 @@ class User extends Model implements
         Authenticatable,
         Authorizable,
         CanResetPassword,
-        MustVerifyEmail;
+        MustVerifyEmailTrait;
 
     /**
      * The attributes that are mass assignable.
