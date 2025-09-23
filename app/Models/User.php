@@ -67,4 +67,14 @@ class User extends Model implements
             'password' => 'hashed',
         ];
     }
+
+    public function edit(Request $request, Contact $contact)
+{
+    if (!$request->user()->can('update-contact', $contact)) {
+        abort(403);
+    }
+
+    return view('contacts.edit', ['contact' => $contact]);
+}
+
 }

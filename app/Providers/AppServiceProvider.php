@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,8 +21,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('update-contact', function ($user, $contact) {
-            return $user->id == $contact->user_id;
-    });
+            return $user->id === $contact->user_id;
+        });
 
+        Gate::define('add-contact-to-group', function ($user, $contact, $group) {
+            return $user->id === $contact->user_id && $user->id === $group->user_id;
+        });
     }
 }
